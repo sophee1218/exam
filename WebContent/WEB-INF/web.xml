@@ -1,8 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>exam</display-name>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-    
-  </welcome-file-list>
-</web-app>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Photoboard">
+
+
+  <insert id="insertPhotoBoard" parameterType="com.file.board.vo.PhotoBoardVO">
+    insert into photo_board(pb_num, pb_title,pb_content,
+    <if test="pbPhotoName != null">pb_photo_name,</if>
+    <if test="pbPhotoPath != null">pb_photo_path,</if> 
+    credat, cretim)
+    values(seq_pb_num.nextval, #{pbTitle}, #{pbContent},
+    <if test="pbPhotoName != null">#{pbPhotoName},</if>
+    <if test="pbPhotoPath != null">#{pbPhotoPath},</if>
+    TO_CHAR(sysdate, 'YYYYMMDD'), TO_CHAR(sysdate, 'HH24MISS'))
+  </insert>
+	
+	<select id="selectPhotoBoardList" resultType="pb">
+		select pb_num, pb_title, pb_content, pb_photo_name, pb_photo_path, credat, cretim
+		from photo_board
+	</select>
+ 	
+</mapper>
